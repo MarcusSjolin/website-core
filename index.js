@@ -6,5 +6,5 @@ app.sendMessage("preUpdateRoutes")
 app.sendMessage("updateRoutes")
 app.sendMessage("postUpdateRoutes")
 
-app.log(app.routes)
-app.routes.get[0].callback()
+app.log(app)
+

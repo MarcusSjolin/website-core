@@ -1,36 +1,16 @@
-var routes = {
-    get: [],
-    post: [],
-    put: []
-}
 exports = module.exports = function (app) {
     return {
-        routes: routes,
-        getRoute: getRoute,
-        addRoute: function (type, name, route, options, callback) {
-            if (! getRoute(route)) {
-
-                if (callback == undefined) {
-                    callback = options
-                    options = {}
-                }
-
-                routes[type].push({
-                    name: name,
-                    route: route,
-                    options: options,
-                    callback: callback
-                })
-            }
-        }
+        get: function (route, callback) {
+            app.express.get(route, callback)
+        },
+        post: function (route, callback) {
+            app.express.post(route, callback)
+        },
+        put: function (route, callback) {
+            app.express.put(route, callback)
+        },
+        all: function (route, callback) {
+            app.express.all(route, callback)
+        },
     };
-}
-
-function getRoute (route, type) {
-    var type = type || 'get'
-    for (var i in routes[type]) {
-        return this.routes[type][i]
-    }
-
-    return undefined
 }
