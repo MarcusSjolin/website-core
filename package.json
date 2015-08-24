@@ -4,12 +4,17 @@
   "description": "This is a core application that can be extended much like Jenkins and allow for plugins/templates etc to be installed",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "nodeunit test/**/*.js"
   },
   "author": "Marcus Sjölin <marcussjolin@icloud.com>",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.13.3",
-    "moment": "^2.10.6",
+    "moment": "^2.10.6"
+  },
+  "plugins": {
+    "website-plugin-admin": "latest"
+  },
+  "devDependencies": {
+    "nodeunit": "^0.9.1"
   }
 }
