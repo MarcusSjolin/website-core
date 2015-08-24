@@ -1,5 +1,4 @@
-exports = module.exports = function(app) {
-    require("./Express")(app)
+exports = module.exports = function(app, request, response) {
     require("./Logger")(app)
     require("./Messages")(app)
     require("./Routes")(app)
