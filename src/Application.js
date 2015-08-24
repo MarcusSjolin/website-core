@@ -3,6 +3,7 @@ var http = require('http')
 var basePath = process.cwd()
 
 var config = require(basePath + "/default.config")
+var HttpInit = require("./Http/Init")
 
 exports = module.exports = function () {
     var app = {
@@ -13,14 +14,7 @@ exports = module.exports = function () {
 
     require ("./Bootstrap")(app)
 
-    return function(req, res) {
-        console.log(app)
-        console.log(app.router.getAll())
-
-        if (app.router.find(req.url)) {
-            res.end("Found!!")
-        } else {
-            res.end("woot")
-        }
-    }
+    app.log("info", "Available Routes", app.router.getAll())
+    
+    return HttpInit(app)
 }

@@ -9,13 +9,13 @@
   "author": "Marcus Sjölin <marcussjolin@icloud.com>",
   "license": "ISC",
   "dependencies": {
-    "moment": "^2.10.6"
+    "moment": "^2.10.6",
+    "node-router": "git+https://github.com/MarcusSjolin/node-router.git"
   },
   "plugins": {
     "website-plugin-admin": "latest"
   },
   "devDependencies": {
-    "moment": "^2.10.6",
-    "node-router": "git+https://github.com/MarcusSjolin/node-router.git"
+    "moment": "^2.10.6"
   }
 }
