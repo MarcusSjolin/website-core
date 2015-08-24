@@ -9,9 +9,9 @@ exports = module.exports = function (app) {
         addPlugin: function (name) {
             var pluginSummary = {
                 name: name,
-                link: require(pluginsPath + "/" + name)
+                link: new require(pluginsPath + "/" + name)(app)
             }
-            console.log("[website-core Plugins/Manager] Added Plugin: " + name)
+            app.log("Added Plugin: " + name)
             app.sendMessage("preAddPlugin", undefined, pluginSummary)
             plugins.push(pluginSummary)
             app.sendMessage("postAddPlugin", undefined, pluginSummary)

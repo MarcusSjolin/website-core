@@ -1,3 +1,5 @@
-exports = module.exports = function(req, res) {
-    res.send("Version: ")
+exports = module.exports = {
+    get: function(req, res) {
+        res.send("Version: ")
+    }
 }
