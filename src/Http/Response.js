@@ -20,7 +20,6 @@ function send (res) {
 }
 function sendFile (res) {
     return function (file, parameters) {
-        console.log(parameters)
         fs.exists(file, function(exists) {
             if (exists) {
                 fs.readFile(file, function(err, data) {

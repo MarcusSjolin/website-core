@@ -1,6 +1,5 @@
-var assets = {}
-
 exports = module.exports = function(app) {
+    app.assetsAvailable = {}
     return {
         get: get(app),
         add: add(app)
@@ -16,7 +15,7 @@ function add (app) {
             path: path
         }
 
-        assets[assetsReference] = assetsEntry
+        app.assetsAvailable[assetsReference] = assetsEntry
 
         return assetsEntry
     }
@@ -24,19 +23,8 @@ function add (app) {
 
 function get (app) {
     return function (req, res) {
-        app.sendMessage("preGetAsset", null, req)
-        app.sendMessage("getAsset", null, req)
-        app.sendMessage("postGetAsset", null, req)
-
-        var route = req.route.query
-        console.log(route)
-        route = route.replace(/\/assets\/[^\/]*/, "")
-
-
-        var assetPath = assets[req.params.id].path + "/" + route
-
-        console.log(assetPath)
-
-        res.sendFile (assetPath)
+        app.sendMessage("preGetAsset", null, req, res)
+        app.sendMessage("getAsset", null, req, res)
+        app.sendMessage("postGetAsset", null, req, res)
     }
 }

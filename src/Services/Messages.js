@@ -14,8 +14,15 @@ exports = module.exports = function (app) {
             if (! listeners[key]) {
                 return
             }
+            var args = []
+
+            for (var i in arguments) {
+                args.push(arguments[i])
+            }
+            args.shift()
+
             for (var i in listeners[key]) {
-                listeners[key][i](app, err, message)
+                listeners[key][i].apply(this, args)
             }
         },
 
