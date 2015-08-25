@@ -24,7 +24,6 @@ function add (app) {
 
 function get (app) {
     return function (req, res) {
-        console.log(req.route)
         app.sendMessage("preGetAsset", null, req)
         app.sendMessage("getAsset", null, req)
         app.sendMessage("postGetAsset", null, req)
