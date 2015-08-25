@@ -27,7 +27,7 @@ exports = module.exports = function (app) {
 
             queryListeners[key].push(callback)
         },
-        query: function(key, message, callback) {
+        sendQuery: function(key, message, callback) {
             if (! queryListeners[key]) {
                 return
             }

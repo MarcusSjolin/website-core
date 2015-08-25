@@ -13,7 +13,8 @@
     "node-router": "git+https://github.com/MarcusSjolin/node-router.git"
   },
   "plugins": {
-    "website-plugin-admin": "latest"
+    "website-plugin-admin": "latest",
+    "website-plugin-webpack": "latest"
   },
   "devDependencies": {
     "moment": "^2.10.6"
