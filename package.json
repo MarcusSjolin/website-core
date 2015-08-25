@@ -9,8 +9,10 @@
   "author": "Marcus Sjölin <marcussjolin@icloud.com>",
   "license": "ISC",
   "dependencies": {
+    "download": "^4.2.0",
     "moment": "^2.10.6",
-    "node-router": "git+https://github.com/MarcusSjolin/node-router.git"
+    "node-router": "git+https://github.com/MarcusSjolin/node-router.git",
+    "shelljs": "^0.5.3"
   },
   "plugins": {
     "website-plugin-admin": "latest",

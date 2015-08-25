@@ -11,7 +11,9 @@ exports = module.exports = function () {
         app: "website-core",
         config: config,
         env: process.env.NODE_ENV || 'development',
-        package: package
+        package: package,
+        tmpPath: basePath + "/.tmp",
+        pluginsPath: basePath + "/dependencies/plugins/"
     }
 
     require ("./Bootstrap")(app)
