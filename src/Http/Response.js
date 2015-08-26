@@ -13,8 +13,12 @@ function json (res) {
     }
 }
 function send (res) {
-    return function (obj) {
-        res.writeHead(200, {"Content-Type": "text/html"});
+    return function (code, obj) {
+        if (obj === undefined) {
+            obj = code
+            code = 200
+        }
+        res.writeHead(code, {"Content-Type": "text/html"});
         res.end(obj)
     }
 }

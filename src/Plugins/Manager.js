@@ -2,15 +2,17 @@ var basePath = process.cwd()
 var pluginsPath = basePath + "/dependencies/plugins"
 
 var installedPlugins = {
-    
+
 }
 var availablePlugins = {
     "website-plugin-admin": {
-        "latest": "https://github.com/MarcusSjolin/website-plugin-admin/archive/0.0.1.zip",
+        "latest": "https://github.com/MarcusSjolin/website-plugin-admin/archive/0.0.2.zip",
+        "0.0.2": "https://github.com/MarcusSjolin/website-plugin-admin/archive/0.0.2.zip",
         "0.0.1": "https://github.com/MarcusSjolin/website-plugin-admin/archive/0.0.1.zip"
     },
     "website-plugin-webpack": {
-        "latest": "https://github.com/MarcusSjolin/website-plugin-webpack/archive/0.0.1.zip",
+        "latest": "https://github.com/MarcusSjolin/website-plugin-webpack/archive/0.0.2.zip",
+        "0.0.2": "https://github.com/MarcusSjolin/website-plugin-webpack/archive/0.0.2.zip",
         "0.0.1": "https://github.com/MarcusSjolin/website-plugin-webpack/archive/0.0.1.zip"
     }
 }
@@ -35,11 +37,9 @@ exports = module.exports = function (app) {
             } else {
                 var url = availablePlugins[name][version]
             }
-            
-            //console.log(url, version, app.pluginsPath)
-            
+
             var Download = require('download');
- 
+
             new Download({
                 mode: '755',
                 extract: true
@@ -49,27 +49,25 @@ exports = module.exports = function (app) {
                         installedPlugins[name] = []
                     }
                     var version = url.split("/").pop().replace(/\.zip/, "")
-                
+
                     installedPlugins[name].push(version)
-                    
+
                     var shell = require('shelljs');
-                    shell.exec("cd " + pluginsPath + "/" + name + "-"+ version + " && npm install && cd -", {silent:true})
-                    console.log("now adding plugin: ", name+"-"+version)
+                    shell.exec("cd " + pluginsPath + "/" + name + "-"+ version + " && npm install && cd -", {silent:false})
                     addPlugin(app)(name+"-"+version)
-                    console.log("already added plugin", name+"-"+version)
                 });
         },
         removePlugin: function (name) {
-            
+
         },
         updatePlugin: function (name) {
-            
+
         },
         enablePlugin: function (name) {
-            
+
         },
         disablePlugin: function (name) {
-            
+
         }
     }
 }
