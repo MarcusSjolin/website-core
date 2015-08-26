@@ -24,13 +24,15 @@ function send (res) {
 }
 function sendFile (res) {
     return function (file, parameters) {
-        fs.exists(file, function(exists) {
-            if (exists) {
-                fs.readFile(file, function(err, data) {
-                    res.writeHead(200, {"Content-Type": "text/html"});
-                    res.end(data)
-                })
-            }
-        })
+        var stat = fs.statSync(file);
+
+        res.writeHead(200, {
+            //'Content-Type': 'audio/mpeg',
+            'Content-Length': stat.size
+        });
+
+        var readStream = fs.createReadStream(file);
+        // We replaced all the event handlers with a simple call to readStream.pipe()
+        readStream.pipe(res);
     }
 }
