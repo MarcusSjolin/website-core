@@ -1,8 +1,12 @@
 exports = module.exports = {
     "website-plugin-admin": {
         "latest": {
-            url: "https://github.com/MarcusSjolin/website-plugin-admin/archive/0.0.3.zip",
-            version: "0.0.3"
+            url: "https://github.com/MarcusSjolin/website-plugin-admin/archive/0.0.4.zip",
+            version: "0.0.4"
+        },
+        "0.0.4": {
+            url: "https://github.com/MarcusSjolin/website-plugin-admin/archive/0.0.4.zip",
+            version: "0.0.4"
         },
         "0.0.3": {
             url: "https://github.com/MarcusSjolin/website-plugin-admin/archive/0.0.3.zip",
