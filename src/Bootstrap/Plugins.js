@@ -5,6 +5,7 @@ exports = module.exports = function (app) {
 
     app.plugins = PluginsManager.plugins
     app.getPlugin = PluginsManager.getPlugin
+    app.addPlugin = PluginsManager.addPlugin
     app.installPlugin = PluginsManager.installPlugin
 
     var package = require(homePath + "/package.json")

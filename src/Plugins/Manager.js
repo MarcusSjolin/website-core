@@ -6,7 +6,8 @@ var installedPlugins = {
 }
 var availablePlugins = {
     "website-plugin-admin": {
-        "latest": "https://github.com/MarcusSjolin/website-plugin-admin/archive/0.0.2.zip",
+        "latest": "https://github.com/MarcusSjolin/website-plugin-admin/archive/0.0.3.zip",
+        "0.0.3": "https://github.com/MarcusSjolin/website-plugin-admin/archive/0.0.3.zip",
         "0.0.2": "https://github.com/MarcusSjolin/website-plugin-admin/archive/0.0.2.zip",
         "0.0.1": "https://github.com/MarcusSjolin/website-plugin-admin/archive/0.0.1.zip"
     },
