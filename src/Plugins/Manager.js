@@ -4,19 +4,7 @@ var pluginsPath = basePath + "/dependencies/plugins"
 var installedPlugins = {
 
 }
-var availablePlugins = {
-    "website-plugin-admin": {
-        "latest": "https://github.com/MarcusSjolin/website-plugin-admin/archive/0.0.3.zip",
-        "0.0.3": "https://github.com/MarcusSjolin/website-plugin-admin/archive/0.0.3.zip",
-        "0.0.2": "https://github.com/MarcusSjolin/website-plugin-admin/archive/0.0.2.zip",
-        "0.0.1": "https://github.com/MarcusSjolin/website-plugin-admin/archive/0.0.1.zip"
-    },
-    "website-plugin-webpack": {
-        "latest": "https://github.com/MarcusSjolin/website-plugin-webpack/archive/0.0.2.zip",
-        "0.0.2": "https://github.com/MarcusSjolin/website-plugin-webpack/archive/0.0.2.zip",
-        "0.0.1": "https://github.com/MarcusSjolin/website-plugin-webpack/archive/0.0.1.zip"
-    }
-}
+var availablePlugins = require("./Packages")
 
 var plugins = []
 
@@ -36,7 +24,7 @@ exports = module.exports = function (app) {
             if (/http\:\/\//.test(name)) {
                 var url = name
             } else {
-                var url = availablePlugins[name][version]
+                var url = availablePlugins[name][version].url
             }
 
             var Download = require('download');
@@ -74,10 +62,16 @@ exports = module.exports = function (app) {
 }
 
 function addPlugin (app) {
-    return function (name) {
+    return function (name, path) {
+        if (! path) {
+            path = app.pluginsPath + "/" + name
+        } else {
+            path = process.cwd() + "/" + path
+        }
+        
         var pluginSummary = {
             name: name,
-            link: new require(app.pluginsPath + "/" + name)(app)
+            link: new require(path)(app)
         }
         app.log("Added Plugin: " + name)
         app.sendMessage("preAddPlugin", undefined, pluginSummary)

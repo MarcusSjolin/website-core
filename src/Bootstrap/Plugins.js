@@ -1,4 +1,6 @@
 var homePath = process.cwd()
+var availablePlugins = require("../Plugins/Packages")
+var fs = require("fs")
 
 exports = module.exports = function (app) {
     var PluginsManager = require ("../Plugins/Manager")(app)
@@ -11,8 +13,15 @@ exports = module.exports = function (app) {
     var package = require(homePath + "/package.json")
 
     if (package.plugins) {
-        for (var i in package.plugins) {
-            app.installPlugin(i, package.plugins[i])
+        for (var pluginName in package.plugins) {
+            if (package.plugins[pluginName][0] == ".") {
+                app.addPlugin(pluginName, package.plugins[pluginName])
+            } else if (fs.lstatSync(arr.pluginsPath + "/" + pluginName + "-" + pluginVersion).isDirectory()) {
+                var pluginVersion = availablePlugins[pluginName][package.plugins[pluginName]].version
+                app.addPlugin(pluginName + "-" + pluginVersion)
+            } else {
+                app.installPlugin(pluginName, package.plugins[pluginName])
+            }
         }
     }
 }
