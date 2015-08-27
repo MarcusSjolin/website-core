@@ -4,8 +4,12 @@ var fs = require("fs")
 
 exports = module.exports = function (app) {
     var PluginsManager = require ("../Plugins/Manager")(app)
-    fs.mkdirSync(homePath + "/dependencies")
-    fs.mkdirSync(homePath + "/dependencies/plugins")
+    if (! fs.existsSync(homePath + "/dependencies")) {
+        fs.mkdirSync(homePath + "/dependencies")
+    }
+    if (! fs.existsSync(homePath + "/dependencies/plugins")) {
+        fs.mkdirSync(homePath + "/dependencies/plugins")
+    }
 
     app.plugins = PluginsManager.plugins
     app.getPlugin = PluginsManager.getPlugin
