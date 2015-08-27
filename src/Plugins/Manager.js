@@ -42,7 +42,7 @@ exports = module.exports = function (app) {
                     installedPlugins[name].push(version)
 
                     var shell = require('shelljs');
-                    shell.exec("cd " + pluginsPath + "/" + name + "-"+ version + " && npm install && cd -", {silent:true})
+                    shell.exec("cd " + app.pluginsPath + "/" + name + "-"+ version + " && npm install && cd -", {silent:true})
                     addPlugin(app)(name+"-"+version)
                 });
         },
