@@ -15,8 +15,8 @@
     "shelljs": "^0.5.3"
   },
   "plugins": {
-    "website-plugin-admin": "../website-plugin-admin",
-    "website-plugin-webpack": "../website-plugin-webpack"
+    "website-plugin-admin": "latest",
+    "website-plugin-webpack": "latest"
   },
   "devDependencies": {
     "moment": "^2.10.6"
