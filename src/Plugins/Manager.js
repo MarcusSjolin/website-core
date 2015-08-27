@@ -1,5 +1,6 @@
 var basePath = process.cwd()
 var pluginsPath = basePath + "/dependencies/plugins"
+var path = require("path")
 
 var installedPlugins = {
 
@@ -15,7 +16,6 @@ module.exports = function (app) {
         getPlugin: function (name) {
             for (var i in plugins) {
                 if (plugins[i].name == name) {
-                    console.log(name)
                     return plugins[i].link
                 }
             }
@@ -46,7 +46,7 @@ module.exports = function (app) {
                     var shell = require('shelljs');
                     shell.exec("cd " + app.pluginsPath + "/" + name + "-"+ version + " && npm install && cd -", {silent:true})
                     app.sendMessage("postInstallPlugin", null, name, version)
-                    addPlugin(app)(name+"-"+version)
+                    addPlugin(app)(name+"-"+version, version)
 
                 });
         }
@@ -54,19 +54,26 @@ module.exports = function (app) {
 }
 
 function addPlugin (app) {
-    return function (name, path) {
-        if (! path) {
-            path = app.pluginsPath + "/" + name
+    return function (name, version, pluginPath) {
+        if (! pluginPath) {
+            pluginPath = app.pluginsPath + "/" + name
         } else {
-            path = process.cwd() + "/" + path
+            pluginPath = process.cwd() + "/" + pluginPath
+        }
+        
+        if (! version) {
+            version = "local"
         }
 
+        pluginPath = path.normalize(pluginPath)
+        
         var pluginSummary = {
             name: name,
-            path: path,
-            link: new require(path)(app)
+            version: version,
+            path: pluginPath,
+            link: new require(pluginPath)(app)
         }
-        app.log("Added Plugin: " + name + " ( "+path+" )")
+        app.log("Added Plugin: " + name + " ( "+pluginPath+" )")
         app.sendMessage("preAddPlugin", undefined, pluginSummary)
         plugins.push(pluginSummary)
         app.sendMessage("postAddPlugin", undefined, pluginSummary)

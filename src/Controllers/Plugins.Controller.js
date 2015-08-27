@@ -1,21 +1,45 @@
-module.exports = {
-    All: function(req, res) {
-        res.json({completed: true, errors: null, data: require("../Plugins/Packages")})
-    },
-    Installed: function(req, res) {
-        res.json({completed: true, errors: null, data: require("../Plugins/Packages")})
-    },
-    Activated: function(req, res) {
-        res.json({completed: true, errors: null, data: require("../Plugins/Packages")})
-    },
-    Activate: function(req, res) {
-        var name = req.params.name || "Name not found"
-        app.log("Activating Plugin: " + req.params.name)
-        res.json({completed: true, errors: null, data:{name: name}})
-    },
-    Deactivate: function(req, res) {
-        var name = req.params.name || "Name not found"
-        app.log("Deactivating Plugin: " + name)
-        res.json({completed: true, errors: null, data:{name: name}})
+var fs = require("fs")
+
+module.exports = function (app) {
+    return {
+        All: function(req, res) {
+            fs.readdir(app.pluginsPath, function(err, installed) {
+                res.json({
+                    available: require("../Plugins/Packages"),
+                    installed: installed,
+                    activated: app.plugins
+                })
+            })
+            
+        },
+        Installed: function(req, res) {
+            console.log(app.pluginsPath)
+            
+            
+        },
+        Activated: function(req, res) {
+            res.json(app.plugins)
+        },
+        Install: function(req, res) {
+            app.log("Installing Plugin: " + req.query.plugin + " ("+req.query.version+")")
+            res.json({
+                plugin: req.query.plugin,
+                version: req.query.version
+            })
+        },
+        Activate: function(req, res) {
+            app.log("Activating Plugin: " + req.query.plugin + " ("+req.query.version+")")
+            res.json({
+                plugin: req.query.plugin,
+                version: req.query.version
+            })
+        },
+        Deactivate: function(req, res) {
+            app.log("Deactivating Plugin: " + req.query.plugin + " ("+req.query.version+")")
+            res.json({
+                plugin: req.query.plugin,
+                version: req.query.version
+            })
+        }
     }
 }
