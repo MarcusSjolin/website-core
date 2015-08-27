@@ -8,7 +8,7 @@ var availablePlugins = require("./Packages")
 
 var plugins = []
 
-exports = module.exports = function (app) {
+module.exports = function (app) {
     return {
         plugins: plugins,
         addPlugin: addPlugin(app),
@@ -26,6 +26,8 @@ exports = module.exports = function (app) {
             } else {
                 var url = availablePlugins[name][version].url
             }
+            app.log("Installing Plugin: "+name+ " ("+availablePlugins[name][version].version+")")
+            app.sendMessage("preInstallPlugin", null, name, version)
 
             var Download = require('download');
 
@@ -43,20 +45,10 @@ exports = module.exports = function (app) {
 
                     var shell = require('shelljs');
                     shell.exec("cd " + app.pluginsPath + "/" + name + "-"+ version + " && npm install && cd -", {silent:true})
+                    app.sendMessage("postInstallPlugin", null, name, version)
                     addPlugin(app)(name+"-"+version)
+
                 });
-        },
-        removePlugin: function (name) {
-
-        },
-        updatePlugin: function (name) {
-
-        },
-        enablePlugin: function (name) {
-
-        },
-        disablePlugin: function (name) {
-
         }
     }
 }
@@ -68,12 +60,13 @@ function addPlugin (app) {
         } else {
             path = process.cwd() + "/" + path
         }
-        
+
         var pluginSummary = {
             name: name,
+            path: path,
             link: new require(path)(app)
         }
-        app.log("Added Plugin: " + name)
+        app.log("Added Plugin: " + name + " ( "+path+" )")
         app.sendMessage("preAddPlugin", undefined, pluginSummary)
         plugins.push(pluginSummary)
         app.sendMessage("postAddPlugin", undefined, pluginSummary)

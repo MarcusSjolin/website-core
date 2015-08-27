@@ -2,15 +2,13 @@
 var http = require('http');
 
 //Lets define a port we want to listen to
-const PORT=8080;
+const PORT = process.env.NODE_PORT || 8080;
 
 var app = require("./src/Application")()
 
-//Create a server
-var server = http.createServer(app);
+var server = app.listen(PORT, function () {
+  var host = server.address().address;
+  var port = server.address().port;
 
-//Lets start our server
-server.listen(PORT, function(){
-    //Callback triggered when server is successfully listening. Hurray!
-    console.log("Server listening on: http://localhost:%s", PORT);
+  console.log('App listening at http://%s:%s', host, port);
 });

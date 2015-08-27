@@ -1,8 +1,8 @@
-exports = module.exports = function (app) {
-    var Assets = require ("../Services/Assets")(app)
+var Assets = require ("../Services/Assets")
 
+exports = module.exports = function (app) {
     app.assets = {
-        add: Assets.add,
-        get: Assets.get
+        add: Assets(app).add,
+        get: Assets(app).get
     }
 }

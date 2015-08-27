@@ -24,11 +24,9 @@ exports = module.exports = function (app) {
                 app.addPlugin(pluginName, package.plugins[pluginName])
             } else {
                 var pluginVersion = availablePlugins[pluginName][package.plugins[pluginName]].version
-
                 if (fs.existsSync(app.pluginsPath + "/" + pluginName + "-" + pluginVersion)) {
                     app.addPlugin(pluginName + "-" + pluginVersion)
                 } else {
-                    app.log("Installing plugin: "+ pluginName)
                     app.installPlugin(pluginName, package.plugins[pluginName])
                 }
             }

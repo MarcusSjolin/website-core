@@ -4,21 +4,23 @@ var basePath = process.cwd()
 
 var config = require(basePath + "/default.config")
 var package = require(basePath + "/package.json")
-var HttpInit = require("./Http/Init")
+var Express = require('express')
 
 exports = module.exports = function () {
-    var app = {
-        app: "website-core",
-        config: config,
-        env: process.env.NODE_ENV || 'development',
-        package: package,
-        tmpPath: basePath + "/.tmp",
-        pluginsPath: basePath + "/dependencies/plugins/"
+    var app = Express();
+    app.project = {
+        name: "website-core"
     }
+
+    app.config = config
+    app.env = process.env.NODE_ENV || 'development'
+    app.package = package
+    app.tmpPath = basePath + "/.tmp"
+    app.pluginsPath = basePath + "/dependencies/plugins"
 
     require ("./Bootstrap")(app)
 
-    app.log("info", "Available Routes", app.router.getAll())
+    //app.log("info", "Available Routes", app.router.getAll())
 
-    return HttpInit(app)
+    return app
 }
