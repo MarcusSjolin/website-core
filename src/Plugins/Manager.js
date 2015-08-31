@@ -1,6 +1,7 @@
 var basePath = process.cwd()
 var pluginsPath = basePath + "/dependencies/plugins"
 var path = require("path")
+var fs = require("fs")
 
 var installedPlugins = {
 
@@ -20,14 +21,21 @@ module.exports = function (app) {
                 }
             }
         },
+        getPluginByVersionReference: getPluginByVersionReference,
         installPlugin: function (name, version) {
+            var plugin = getPluginByVersionReference(name, version)
+            if (fs.existsSync(app.pluginsPath + "/" + name + "-" + plugin.version)) {
+                this.addPlugin(name, plugin.version)
+                return
+            }
+            
             if (/http\:\/\//.test(name)) {
                 var url = name
             } else {
-                var url = availablePlugins[name][version].url
+                var url = plugin.url
             }
-            app.log("Installing Plugin: "+name+ " ("+availablePlugins[name][version].version+")")
-            app.sendMessage("preInstallPlugin", null, name, version)
+            app.log("Installing Plugin: "+name+ " ("+plugin.version+")")
+            app.sendMessage("preInstallPlugin", null, name, plugin.version)
 
             var Download = require('download');
 
@@ -46,23 +54,27 @@ module.exports = function (app) {
                     var shell = require('shelljs');
                     shell.exec("cd " + app.pluginsPath + "/" + name + "-"+ version + " && npm install && cd -", {silent:true})
                     app.sendMessage("postInstallPlugin", null, name, version)
-                    addPlugin(app)(name+"-"+version, version)
+                    addPlugin(app)(name, version)
 
                 });
         }
     }
 }
 
+function getPluginByVersionReference (name, version) {
+    return availablePlugins[name][version]
+}
+
 function addPlugin (app) {
     return function (name, version, pluginPath) {
         if (! pluginPath) {
-            pluginPath = app.pluginsPath + "/" + name
+            pluginPath = app.pluginsPath + "/" + name + "-" + version
         } else {
             pluginPath = process.cwd() + "/" + pluginPath
         }
         
         if (! version) {
-            version = "local"
+            version = "unknown"
         }
 
         pluginPath = path.normalize(pluginPath)

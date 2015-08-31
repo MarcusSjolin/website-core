@@ -10,18 +10,16 @@ module.exports = function (app) {
                     activated: app.plugins
                 })
             })
-            
         },
         Installed: function(req, res) {
             console.log(app.pluginsPath)
-            
-            
         },
         Activated: function(req, res) {
             res.json(app.plugins)
         },
         Install: function(req, res) {
-            app.log("Installing Plugin: " + req.query.plugin + " ("+req.query.version+")")
+            app.log("User Queried to install Plugin: " + req.query.plugin + " ("+req.query.version+")")
+            app.installPlugin(req.query.plugin, req.query.version)
             res.json({
                 plugin: req.query.plugin,
                 version: req.query.version

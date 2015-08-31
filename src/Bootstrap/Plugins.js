@@ -21,14 +21,11 @@ exports = module.exports = function (app) {
     if (package.plugins) {
         for (var pluginName in package.plugins) {
             if (package.plugins[pluginName][0] == ".") {
-                app.addPlugin(pluginName, null, package.plugins[pluginName])
+                app.addPlugin(pluginName, 'local', package.plugins[pluginName])
             } else {
                 var pluginVersion = availablePlugins[pluginName][package.plugins[pluginName]].version
-                if (fs.existsSync(app.pluginsPath + "/" + pluginName + "-" + pluginVersion)) {
-                    app.addPlugin(pluginName + "-" + pluginVersion, pluginVersion)
-                } else {
-                    app.installPlugin(pluginName, package.plugins[pluginName])
-                }
+                app.installPlugin(pluginName, pluginVersion)
+                
             }
         }
     }
