@@ -23,7 +23,5 @@ exports = module.exports = function () {
 
     require ("./Bootstrap")(app)
 
-    //app.log("info", "Available Routes", app.router.getAll())
-
     return app
 }
