@@ -7,8 +7,9 @@ const PORT = process.env.NODE_PORT || 8080;
 var app = require("./src/Application")()
 
 var server = app.listen(PORT, function () {
-  var host = server.address().address;
-  var port = server.address().port;
+    console.log(app)
+    var host = server.address().address;
+    var port = server.address().port;
 
-  console.log('App listening at http://%s:%s', host, port);
+    console.log('App listening at http://%s:%s', host, port);
 });

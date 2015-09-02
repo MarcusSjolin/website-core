@@ -17,6 +17,9 @@ exports = module.exports = function () {
     app.package = package
     app.tmpPath = basePath + "/.tmp"
     app.pluginsPath = basePath + "/dependencies/plugins"
+    app.isDev = function() {
+        return true
+    }
 
     require ("./Bootstrap")(app)
 

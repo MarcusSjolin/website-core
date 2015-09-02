@@ -12,21 +12,23 @@ exports = module.exports = function (app) {
                         : arguments[i]
                 )
             }
-            
-            if (! ["info", "warn", "error", "debug"].indexOf(severity)) {
+            console.log(args)
+            if (["info", "warn", "error", "debug"].indexOf(severity) == -1) {
                 severity = "info"
             } else {
                 args.shift()
             }
-            args.shift()
-            
-            args.unshift("["+getDate()+"]["+severity+"]")
-            
-            console.log.apply(this, args)
+            var message = "[" + moment().format("YYYY-MM-DD HH:mm:ss") + "]"
+
+            message += "[" + severity + "]"
+            for (var i in args) {
+                message += "["+args[i]+"]"
+            }
+
+            console.log(message)
+            if (app.isDev()) {
+                app.devMessage(message)
+            }
         }
     }
-}
-
-function getDate() {
-    return moment().format("YYYY-MM-DD HH:mm:ss")
 }
