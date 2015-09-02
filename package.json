@@ -20,6 +20,7 @@
     "website-plugin-webpack": "latest"
   },
   "devDependencies": {
+    "browser-sync": "^2.8.2",
     "moment": "^2.10.6"
   }
 }
