@@ -4,7 +4,7 @@
   "description": "This is a core application that can be extended much like Jenkins and allow for plugins/templates etc to be installed",
   "main": "index.js",
   "scripts": {
-    "test": "nodeunit test/**/*.js"
+    "start": "node index"
   },
   "author": "Marcus Sjölin <marcussjolin@icloud.com>",
   "license": "ISC",
@@ -13,11 +13,15 @@
     "express": "^4.13.3",
     "moment": "^2.10.6",
     "node-router": "git+https://github.com/MarcusSjolin/node-router.git",
+    "react": "^0.13.3",
+    "react-router": "^0.13.3",
     "shelljs": "^0.5.3"
   },
   "plugins": {
+    "website-plugin-blog": "latest",
     "website-plugin-admin": "latest",
-    "website-plugin-webpack": "latest"
+    "website-plugin-webpack": "latest",
+    "website-plugin-start": "latest"
   },
   "devDependencies": {
     "browser-sync": "^2.8.2",
